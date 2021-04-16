@@ -1,4 +1,6 @@
 import socket
+import pickle
+
 HEADERSIZE=10
 class client(): 
     def __init__(self,ip,socket):
@@ -11,7 +13,7 @@ class client():
     def connect(self):
         self.connection.connect ((self.ip,self.socket))
         print('connected!')
-        full_msg=""
+        full_msg=b''
         new_msg=True
         while True:
             msg=self.connection.recv(16)
@@ -20,13 +22,15 @@ class client():
                 #print(f"new message length: {msg[:HEADERSIZE]}")
                 msglen = int(msg[:HEADERSIZE]) #python will be okay.
                 new_msg=False
-            full_msg+=msg.decode("utf-8")
+            full_msg+=msg #do not decode anymore.
 
             if len(full_msg)-HEADERSIZE == msglen: 
-                #3print("full message recv")
+                print("object received")
                 print(full_msg[HEADERSIZE:])
+                d=pickle.loads(full_msg[HEADERSIZE:])
+                print(d)
                 new_msg=True
-                full_msg=''
+                full_msg=b''
 
                 
         
