@@ -19,7 +19,7 @@ class server():
             msg=self.create_message('123')
 
 
-            clientsocket.send(bytes(msg,'utf-8'))
+            clientsocket.send(msg)
             #you need a header at the start in order to stream the data. 
             #you need the fixed header. This will keep the length of the header 
             #always at 10 characters. 
@@ -27,6 +27,6 @@ class server():
     def create_message(self,object): 
         d={1:"Hey",2:"There"} #for now it's a hardcoded
         msg=pickle.dumps(d) 
-        msg=bytes(f'{len(msg):<{HEADERSIZE}}','utf -8') +msg
+        msg=bytes(f'{len(msg):<{HEADERSIZE}}',"utf -8") +msg
         return msg
         
