@@ -1,5 +1,5 @@
 import socket
-
+HEADERSIZE=10
 class server(): 
     def __init__(self,ip,socket): 
         self.ip=ip
@@ -14,4 +14,12 @@ class server():
         while True: 
             clientsocket,address = self.connection.accept() #the client address and socket. 
             print(f"Connection from {address} has been established")
-            clientsocket.send(bytes("Welcome",'utf-8'))
+            
+            msg="Welcome to the Server"
+            msg=f'{len(msg):<{HEADERSIZE}}' + msg #this is the header. 
+
+            clientsocket.send(bytes(msg,'utf-8'))
+            #you need a header at the start in order to stream the data. 
+            #you need the fixed header. This will keep the length of the header 
+            #always at 10 characters. 
+          
