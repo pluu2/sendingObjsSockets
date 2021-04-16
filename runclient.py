@@ -1,5 +1,5 @@
-from src.server import * 
-from serverconfig import socket
+from src.client import * 
+from serverconfig import ip,socket
 
 
-s=server(socket)
+s=client(ip, socket)
