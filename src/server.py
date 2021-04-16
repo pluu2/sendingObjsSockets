@@ -1,4 +1,5 @@
 import socket
+import pickle
 HEADERSIZE=10
 class server(): 
     def __init__(self,ip,socket): 
@@ -15,11 +16,17 @@ class server():
             clientsocket,address = self.connection.accept() #the client address and socket. 
             print(f"Connection from {address} has been established")
             
-            msg="Welcome to the Server"
-            msg=f'{len(msg):<{HEADERSIZE}}' + msg #this is the header. 
+            msg=self.create_message('123')
+
 
             clientsocket.send(bytes(msg,'utf-8'))
             #you need a header at the start in order to stream the data. 
             #you need the fixed header. This will keep the length of the header 
             #always at 10 characters. 
           
+    def create_message(self,object): 
+        d={1:"Hey",2:"There"} #for now it's a hardcoded
+        msg=pickle.dumps(d) 
+        msg=bytes(f'{len(msg):<{HEADERSIZE}}','utf -8') +msg
+        return msg
+        
