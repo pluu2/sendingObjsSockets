@@ -1,6 +1,6 @@
 import socket
 
-class server(): 
+class client(): 
     def __init__(self,ip,socket): 
         self.ip=ip
         self.socket=socket
