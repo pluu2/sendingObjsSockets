@@ -23,10 +23,11 @@ class client():
                 msglen = int(msg[:HEADERSIZE]) #python will be okay.
                 new_msg=False
             full_msg+=msg #do not decode anymore.
+            print('.')
 
             if len(full_msg)-HEADERSIZE == msglen: 
                 print("object received")
-                print(full_msg[HEADERSIZE:])
+                #print(full_msg[HEADERSIZE:])
                 d=pickle.loads(full_msg[HEADERSIZE:])
                 print(d)
                 new_msg=True
